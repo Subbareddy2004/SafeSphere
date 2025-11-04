@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Layout from '../components/Layout';
 import EmergencyButton from '../components/EmergencyButton';
 import Chatbot from '../components/Chatbot';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Dashboard() {
   const [showChatbot, setShowChatbot] = useState(false);
@@ -106,8 +106,8 @@ export default function Dashboard() {
         <div>
           <h2 className="text-xl font-bold text-slate-800 mb-4">🚀 Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <a
-              href="/helpboard"
+            <Link
+              to="/helpboard"
               className="bg-white rounded-xl p-6 hover:shadow-soft-lg transition-all border border-slate-200 group card-hover"
             >
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
@@ -115,10 +115,10 @@ export default function Dashboard() {
               </div>
               <h3 className="text-slate-800 font-bold text-lg mb-2">Help Board</h3>
               <p className="text-slate-600 text-sm">Post or browse community help requests</p>
-            </a>
+            </Link>
 
-            <a
-              href="/directory"
+            <Link
+              to="/directory"
               className="bg-white rounded-xl p-6 hover:shadow-soft-lg transition-all border border-slate-200 group card-hover"
             >
               <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
@@ -126,7 +126,7 @@ export default function Dashboard() {
               </div>
               <h3 className="text-slate-800 font-bold text-lg mb-2">Directory</h3>
               <p className="text-slate-600 text-sm">Find emergency contacts and services</p>
-            </a>
+            </Link>
 
             <button
               onClick={() => setShowChatbot(true)}

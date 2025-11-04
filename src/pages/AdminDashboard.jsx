@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { collection, query, orderBy, onSnapshot, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import EmergencyAlerts from '../components/EmergencyAlerts';
 
@@ -172,8 +172,8 @@ export default function AdminDashboard() {
         <div>
           <h2 className="text-xl font-bold text-slate-800 mb-4">⚡ Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <a
-              href="/helpboard"
+            <Link
+              to="/helpboard"
               className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-soft-lg transition-all group card-hover"
             >
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition">
@@ -181,10 +181,10 @@ export default function AdminDashboard() {
               </div>
               <h3 className="text-slate-800 font-bold text-lg mb-1">Manage Help Board</h3>
               <p className="text-slate-600 text-sm">View and respond to requests</p>
-            </a>
+            </Link>
 
-            <a
-              href="/directory"
+            <Link
+              to="/directory"
               className="bg-white rounded-xl p-6 border border-slate-200 hover:shadow-soft-lg transition-all group card-hover"
             >
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition">
@@ -192,7 +192,7 @@ export default function AdminDashboard() {
               </div>
               <h3 className="text-slate-800 font-bold text-lg mb-1">Directory</h3>
               <p className="text-slate-600 text-sm">Manage emergency contacts</p>
-            </a>
+            </Link>
 
             <button
               onClick={() => navigate('/seed')}

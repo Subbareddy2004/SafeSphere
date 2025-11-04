@@ -8,6 +8,9 @@ You're seeing 404 errors because the production build needs to be rebuilt and re
 
 ## ✅ Quick Fix Steps
 
+### IMPORTANT: Fixed Navigation Links
+All `<a href>` tags have been replaced with React Router `<Link to>` components. This fixes 404 errors in production.
+
 ### 1. Build the Project
 ```bash
 npm run build
