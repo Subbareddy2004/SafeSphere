@@ -221,30 +221,33 @@ export default function EmergencyAlerts() {
   const displayedEmergencies = showAll ? emergencies : emergencies.slice(0, 3);
 
   return (
-    <div className="bg-gradient-to-r from-red-500 to-pink-500 border-2 border-red-400 rounded-xl p-6 shadow-soft-lg animate-pulse-slow">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-            <i className={`fas fa-exclamation-triangle text-white text-xl ${soundPlaying ? 'animate-bounce' : ''}`}></i>
+    <div className="bg-gradient-to-r from-red-500 to-pink-500 border-2 border-red-400 rounded-xl p-4 sm:p-6 shadow-soft-lg animate-pulse-slow">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm flex-shrink-0">
+            <i className={`fas fa-exclamation-triangle text-white text-lg sm:text-xl ${soundPlaying ? 'animate-bounce' : ''}`}></i>
           </div>
-          <div>
-            <h2 className="text-xl font-bold text-white">🚨 Active Emergencies</h2>
-            <p className="text-white/90 text-sm">
+          <div className="min-w-0">
+            <h2 className="text-lg sm:text-xl font-bold text-white">🚨 Active Emergencies</h2>
+            <p className="text-white/90 text-xs sm:text-sm">
               {emergencies.length} alert{emergencies.length !== 1 ? 's' : ''} requiring attention
-              {soundPlaying && <span className="ml-2">🔊 Sound playing...</span>}
+              {soundPlaying && <span className="ml-1 sm:ml-2">🔊 Sound...</span>}
             </p>
           </div>
         </div>
         
-        <div className="flex items-center space-x-2">
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2 flex-wrap">
           {/* Acknowledge Button */}
           {soundPlaying && !acknowledged && (
             <button
               onClick={handleAcknowledge}
-              className="px-4 py-2 bg-yellow-400 text-slate-900 rounded-lg font-semibold hover:bg-yellow-300 transition text-sm flex items-center space-x-2 animate-pulse shadow-md"
+              className="px-3 sm:px-4 py-2 bg-yellow-400 text-slate-900 rounded-lg font-semibold hover:bg-yellow-300 transition text-xs sm:text-sm flex items-center space-x-1 sm:space-x-2 animate-pulse shadow-md"
             >
               <i className="fas fa-volume-mute"></i>
-              <span>Acknowledge & Mute</span>
+              <span className="hidden sm:inline">Acknowledge & Mute</span>
+              <span className="sm:hidden">Mute</span>
             </button>
           )}
           
@@ -252,7 +255,7 @@ export default function EmergencyAlerts() {
           {emergencies.length > 3 && (
             <button
               onClick={() => setShowAll(!showAll)}
-              className="px-4 py-2 bg-white text-red-600 rounded-lg font-semibold hover:bg-red-50 transition text-sm shadow-md"
+              className="px-3 sm:px-4 py-2 bg-white text-red-600 rounded-lg font-semibold hover:bg-red-50 transition text-xs sm:text-sm shadow-md"
             >
               {showAll ? 'Show Less' : `View All (${emergencies.length})`}
             </button>
@@ -260,47 +263,52 @@ export default function EmergencyAlerts() {
         </div>
       </div>
 
+      {/* Emergency Cards */}
       <div className="space-y-3">
         {displayedEmergencies.map((emergency) => (
-          <div key={emergency.id} className="bg-white rounded-lg p-4 shadow-soft-lg border border-slate-200">
-            <div className="flex items-start justify-between">
-              <div className="flex items-start space-x-3 flex-1">
-                <div className={`w-12 h-12 ${getEmergencyColor(emergency.type)} rounded-lg flex items-center justify-center flex-shrink-0 shadow-md`}>
-                  <i className={`fas ${getEmergencyIcon(emergency.type)} text-white text-xl`}></i>
+          <div key={emergency.id} className="bg-white rounded-lg p-3 sm:p-4 shadow-soft-lg border border-slate-200">
+            {/* Mobile: Stack layout, Desktop: Side by side */}
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              {/* Emergency Info */}
+              <div className="flex items-start space-x-2 sm:space-x-3 flex-1 min-w-0">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 ${getEmergencyColor(emergency.type)} rounded-lg flex items-center justify-center flex-shrink-0 shadow-md`}>
+                  <i className={`fas ${getEmergencyIcon(emergency.type)} text-white text-lg sm:text-xl`}></i>
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <h3 className="text-slate-800 font-bold text-lg">{emergency.type} Emergency</h3>
-                    <span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full animate-pulse border border-red-200">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <h3 className="text-slate-800 font-bold text-base sm:text-lg">{emergency.type} Emergency</h3>
+                    <span className="px-2 py-0.5 sm:py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full animate-pulse border border-red-200">
                       ACTIVE
                     </span>
                   </div>
                   <div className="space-y-1 mb-2">
-                    <p className="text-slate-700 text-sm font-medium">
-                      <i className="fas fa-user mr-2 text-blue-600"></i>
+                    <p className="text-slate-700 text-xs sm:text-sm font-medium truncate">
+                      <i className="fas fa-user mr-1 sm:mr-2 text-blue-600"></i>
                       {emergency.userName || emergency.userEmail}
                     </p>
-                    <p className="text-slate-600 text-sm">
-                      <i className="fas fa-phone mr-2 text-green-600"></i>
+                    <p className="text-slate-600 text-xs sm:text-sm">
+                      <i className="fas fa-phone mr-1 sm:mr-2 text-green-600"></i>
                       {emergency.userPhone || 'Not provided'}
                     </p>
-                    <p className="text-slate-600 text-sm">
-                      <i className="fas fa-home mr-2 text-purple-600"></i>
+                    <p className="text-slate-600 text-xs sm:text-sm truncate">
+                      <i className="fas fa-home mr-1 sm:mr-2 text-purple-600"></i>
                       Unit: {emergency.userUnit || 'Not provided'}
                     </p>
                   </div>
                   <p className="text-slate-500 text-xs">
-                    <i className="fas fa-clock mr-2"></i>
+                    <i className="fas fa-clock mr-1 sm:mr-2"></i>
                     {emergency.timestamp?.toDate().toLocaleString()}
                   </p>
                 </div>
               </div>
+              
+              {/* Resolve Button */}
               <button
                 onClick={() => handleResolve(emergency.id)}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition text-sm flex-shrink-0 ml-4 shadow-md"
+                className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition text-sm flex items-center justify-center space-x-2 shadow-md flex-shrink-0"
               >
-                <i className="fas fa-check mr-2"></i>
-                Resolve
+                <i className="fas fa-check"></i>
+                <span>Resolve</span>
               </button>
             </div>
           </div>

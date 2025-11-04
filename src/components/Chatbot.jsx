@@ -199,44 +199,44 @@ User message: ${userMessage}`;
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl h-[600px] flex flex-col">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl w-full max-w-2xl h-[95vh] sm:h-[600px] flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-t-2xl flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <i className="fas fa-robot text-2xl"></i>
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 sm:p-6 rounded-t-xl sm:rounded-t-2xl flex items-center justify-between flex-shrink-0">
+          <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm flex-shrink-0">
+              <i className="fas fa-robot text-xl sm:text-2xl"></i>
             </div>
-            <div>
-              <h2 className="text-xl font-bold">AI Assistant</h2>
-              <p className="text-sm text-purple-100">
+            <div className="min-w-0">
+              <h2 className="text-lg sm:text-xl font-bold truncate">AI Assistant</h2>
+              <p className="text-xs sm:text-sm text-purple-100">
                 {isSpeaking ? '🔊 Speaking...' : isListening ? '🎤 Listening...' : 'Online'}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-lg bg-white/20 hover:bg-white/30 transition flex items-center justify-center"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/20 hover:bg-white/30 transition flex items-center justify-center flex-shrink-0"
           >
-            <i className="fas fa-times text-xl"></i>
+            <i className="fas fa-times text-lg sm:text-xl"></i>
           </button>
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3 sm:space-y-4 bg-slate-50">
           {messages.map((msg, idx) => (
             <div
               key={idx}
               className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-2xl p-4 ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-xl sm:rounded-2xl p-3 sm:p-4 ${
                   msg.role === 'user'
                     ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white'
                     : 'bg-white text-slate-800 shadow-soft border border-slate-200'
                 }`}
               >
-                <p className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</p>
+                <p className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed">{msg.content}</p>
               </div>
             </div>
           ))}
@@ -256,17 +256,18 @@ User message: ${userMessage}`;
 
         {/* Quick Actions */}
         {messages.length === 1 && (
-          <div className="px-6 py-3 bg-white border-t border-slate-200">
+          <div className="px-3 sm:px-6 py-2 sm:py-3 bg-white border-t border-slate-200 flex-shrink-0">
             <p className="text-xs text-slate-600 mb-2 font-medium">Quick actions:</p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {quickActions.map((action, idx) => (
                 <button
                   key={idx}
                   onClick={() => setInput(action.text)}
-                  className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition flex items-center space-x-2"
+                  className="px-2 sm:px-3 py-1 sm:py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition flex items-center space-x-1 sm:space-x-2"
                 >
-                  <i className={`fas ${action.icon}`}></i>
-                  <span>{action.text}</span>
+                  <i className={`fas ${action.icon} text-xs`}></i>
+                  <span className="hidden sm:inline">{action.text}</span>
+                  <span className="sm:hidden">{action.text.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
               ))}
             </div>
@@ -274,8 +275,8 @@ User message: ${userMessage}`;
         )}
 
         {/* Input */}
-        <div className="p-4 bg-white border-t border-slate-200 rounded-b-2xl">
-          <div className="flex space-x-2">
+        <div className="p-3 sm:p-4 bg-white border-t border-slate-200 rounded-b-xl sm:rounded-b-2xl flex-shrink-0">
+          <div className="flex space-x-1.5 sm:space-x-2">
             <div className="flex-1 relative">
               <input
                 type="text"
@@ -283,38 +284,38 @@ User message: ${userMessage}`;
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type or use voice..."
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-12"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border border-slate-300 rounded-lg sm:rounded-xl text-sm sm:text-base text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent pr-10 sm:pr-12"
               />
               {isSpeaking && (
                 <button
                   onClick={stopSpeaking}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-600 hover:text-red-700"
+                  className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 text-red-600 hover:text-red-700"
                 >
-                  <i className="fas fa-volume-mute text-lg"></i>
+                  <i className="fas fa-volume-mute text-base sm:text-lg"></i>
                 </button>
               )}
             </div>
             
             <button
               onClick={isListening ? stopListening : startListening}
-              className={`w-12 h-12 rounded-xl flex items-center justify-center transition ${
+              className={`w-11 h-11 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center transition flex-shrink-0 ${
                 isListening
                   ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
                   : 'bg-purple-100 hover:bg-purple-200 text-purple-600'
               }`}
             >
-              <i className={`fas ${isListening ? 'fa-stop' : 'fa-microphone'} text-lg`}></i>
+              <i className={`fas ${isListening ? 'fa-stop' : 'fa-microphone'} text-base sm:text-lg`}></i>
             </button>
             
             <button
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white flex items-center justify-center hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white flex items-center justify-center hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             >
-              <i className="fas fa-paper-plane"></i>
+              <i className="fas fa-paper-plane text-sm sm:text-base"></i>
             </button>
           </div>
-          <p className="text-xs text-slate-500 mt-2 text-center">
+          <p className="text-xs text-slate-500 mt-2 text-center hidden sm:block">
             💡 Tip: Click the microphone to speak your request
           </p>
         </div>
