@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // TEMPORARY: Allow all access for development and seeding
+    // TODO: Restrict these rules in production
+    match /{document=**} {
+      allow read, write: if true;
+    }
+    
+    // PRODUCTION RULES (commented out for now):
+    /*
+    // Users collection
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Help Posts
+    match /helpPosts/{postId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
+    
+    // Emergencies
+    match /emergencies/{emergencyId} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if request.auth != null;
+    }
+    
+    // Contacts
+    match /contacts/{contactId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    */
+  }
+}
